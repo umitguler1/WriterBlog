@@ -1,0 +1,32 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+
+@model List<BlogDto>
+@{
+    ViewData["Title"] = "BlogListByWriterAsync";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<table class="table table-hover">
+    <tr>
+        <th>#</th>
+        <th>Blog Başlığı</th>
+        <th>Oluşturma Tarihi</th>
+        <th>Kategori</th>
+        <th>Sil</th>
+        <th>Düzenle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+       <tr>
+           <td>@item.Id</td>
+           <td>@item.Title</td>
+           <td>@item.CreateDate</td>
+           <td>@item.CategoryId</td>
+            <td><a href="/Blog/BlogRemove/@item.Id" class="btn btn-danger">Sil</a></td>
+            <td><a href="/Blog/UpdateBlog/@item.Id" class="btn btn-warning">Düzenle</a></td>
+           
+       </tr> 
+    }
+</table>
+<a href="/blog/blogadd" class="btn btn-primary">Yeni Bolg Oluştur</a>
+ 

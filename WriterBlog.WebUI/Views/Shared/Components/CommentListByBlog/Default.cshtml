@@ -1,0 +1,23 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+
+@model List<CommentDto>
+
+<div class="comment-top">
+	<h4>Yorumlar</h4>
+	@foreach (var item in Model)
+		{
+	<div class="media">
+		<img src="~/WriterBlogTema/images/t1.jpg" alt="" class="img-fluid" />
+		<div class="media-body">
+			<h5 class="mt-0">@item.UserName</h5>
+			<p>
+				@item.Content
+			</p>
+
+	
+		</div>
+
+		
+	</div>
+		}
+</div>
