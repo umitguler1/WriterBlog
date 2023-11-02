@@ -6,10 +6,18 @@ namespace WriterBlog.WebUI.ViewComponents.Writer
 {
     public class WriterMessageNotification : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync()
+        private readonly IMessage2Service _message2Service;
+
+		public WriterMessageNotification(IMessage2Service message2Service)
+		{
+			_message2Service = message2Service;
+		}
+
+		public async Task<IViewComponentResult> InvokeAsync()
         {
-            
-            return View();
+            List<Message2Dto> values = await _message2Service.GetInboxListByWriter(2);
+            return View(values);
         }
+
     }
 }

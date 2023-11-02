@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using WinterBlog.DataAccess.Repositories;
 using WriterBlog.Business.Abstract;
 using WriterBlog.Business.ValidationRules;
+using WriterBlog.Entities.Concrete;
 using WriterBlog.Entities.Concrete.Dtos;
 
 namespace WriterBlog.WebUI.Controllers
@@ -32,17 +33,23 @@ namespace WriterBlog.WebUI.Controllers
 		{
        
             ViewBag.Id = id;
+            TempData["BlogId"] = id;
 
             d++;
-			BlogDto blogDto = await _blogService.GetBlogByIdAsync(id);
+			BlogDto blogDto = await _blogService.GetBlogByIdAsync(1);
 			return View(blogDto);
        
 		}
-      
-        public async Task<IActionResult> BlogListByWriter()
+		static int writerId;
+		static int sayac;
+		public async Task<IActionResult> BlogListByWriter()
         {
-            
-           List<BlogDto> blogDtos = await _blogService.GetBlogListByWriterAsyn(1);
+			//if (sayac < 1)
+			//{
+			//	writerId = int.Parse(TempData["WriterId2"].ToString());
+			//	sayac += 2;
+			//}
+			List<BlogDto> blogDtos = await _blogService.GetBlogListByWriterAsyn(1);
             return View(blogDtos);
         }
        

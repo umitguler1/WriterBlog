@@ -13,6 +13,7 @@ namespace WriterBlog.Entities.Concrete.Dtos
 		public string Title { get; set; }
 		public string Content { get; set; }
 		public DateTime CreateDate { get; set; }
+		public int BlogScore { get; set; }
 		public bool IsDeleted { get; set; }
 		public int BlogID { get; set; }
 

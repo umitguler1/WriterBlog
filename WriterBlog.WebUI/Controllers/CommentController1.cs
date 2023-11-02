@@ -22,10 +22,13 @@ namespace WriterBlog.WebUI.Controllers
 		{
 			return  PartialView();
 		}
+		static int id;
 		[HttpPost]
 		public async Task<PartialViewResult> PartialAddComment(CommentDto commentDto)
 		{
-			commentDto.BlogID = 2;
+			id = int.Parse((TempData["BlogId"]).ToString());
+			commentDto.BlogID =id ;
+			commentDto.BlogScore = 5;
 			_commentService.AddCommentAsync(commentDto);
 			return PartialView();
 		}

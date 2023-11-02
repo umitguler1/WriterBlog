@@ -1,0 +1,23 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+@model List<NotificationDto>
+@{
+    ViewData["Title"] = "AllNotification";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Tüm Bildirimler</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Bildirim</th>
+        <th>Taarih</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.NotificationDetils</td>
+            <td>@item.NotificationDate.ToShortDateString()</td>
+        </tr>
+    }
+</table>

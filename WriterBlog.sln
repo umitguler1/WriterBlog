@@ -5,13 +5,15 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriterBlog.WebUI", "WriterBlog.WebUI\WriterBlog.WebUI.csproj", "{9E59403C-FBF8-4E9E-A3EC-DFFA3F9B8641}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriterBlog.Core", "WriterBlog.Core\WriterBlog.Core.csproj", "{515212AE-6BBB-48E2-A53F-17348D010EFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriterBlog.Core", "WriterBlog.Core\WriterBlog.Core.csproj", "{515212AE-6BBB-48E2-A53F-17348D010EFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriterBlog.Entities", "WriterBlog.Entities\WriterBlog.Entities.csproj", "{CFDDC30A-AF8C-4C51-B2F1-C78355D9A0F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriterBlog.Entities", "WriterBlog.Entities\WriterBlog.Entities.csproj", "{CFDDC30A-AF8C-4C51-B2F1-C78355D9A0F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinterBlog.DataAccess", "WinterBlog.DataAccess\WinterBlog.DataAccess.csproj", "{D466F9B3-C373-4D7E-96F0-EFE50B7B808D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinterBlog.DataAccess", "WinterBlog.DataAccess\WinterBlog.DataAccess.csproj", "{D466F9B3-C373-4D7E-96F0-EFE50B7B808D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriterBlog.Business", "WriterBlog.Business\WriterBlog.Business.csproj", "{E75D71D7-8C31-4022-A478-EBB1F31448FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriterBlog.Business", "WriterBlog.Business\WriterBlog.Business.csproj", "{E75D71D7-8C31-4022-A478-EBB1F31448FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriterBlogApi", "WriterBlogApi\WriterBlogApi.csproj", "{484E5213-78DD-4575-BB1E-65A405D540E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E75D71D7-8C31-4022-A478-EBB1F31448FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E75D71D7-8C31-4022-A478-EBB1F31448FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E75D71D7-8C31-4022-A478-EBB1F31448FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{484E5213-78DD-4575-BB1E-65A405D540E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{484E5213-78DD-4575-BB1E-65A405D540E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{484E5213-78DD-4575-BB1E-65A405D540E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{484E5213-78DD-4575-BB1E-65A405D540E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,7 +10,7 @@ using WriterBlog.Core.Entities;
 namespace WriterBlog.Entities.Concrete
 {
     public class Writer : IEntity
-    {
+	{
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,6 +20,8 @@ namespace WriterBlog.Entities.Concrete
         public string Password { get; set; }
 
         public List<Blog> Blogs { get; set; }
-        public bool IsDeleted { get; set; }
+        public virtual ICollection<Message2> WriterSender { get; set; }
+        public virtual ICollection<Message2> WriterReceiver { get; set; }
+    public bool IsDeleted { get; set; }
     }
 }

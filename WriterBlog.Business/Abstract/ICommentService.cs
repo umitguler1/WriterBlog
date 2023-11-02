@@ -14,5 +14,6 @@ namespace WriterBlog.Business.Abstract
         Task<bool> DeleteCommentAsync(CommentDto commentDto);
         Task<CommentDto> GetCommentByIdAsync(int id);
         Task<List<CommentDto>> GetAllCommentAsync(int id);
+        Task<List<CommentDto>> GetAllCommentNoIdAsync();
     }
 }

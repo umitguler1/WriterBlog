@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,11 @@ namespace WriterBlog.Business.DependencyResolvers
 			builder.RegisterType<ContactMenager>().As<IContactService>();
 			builder.RegisterType<WriterMenager>().As<IWriterService>();
 			builder.RegisterType<NewsLetterManager>().As<INewsLetterService>();
+			builder.RegisterType<NotificationMenager>().As<INotificationService>();
+			builder.RegisterType<MessageMenager>().As<IMessageService>();
+			builder.RegisterType<Message2Menager>().As<IMessage2Service>();
+			builder.RegisterType<AuthMenager>().As<IAuthService>();
+			builder.RegisterType<UserMenager>().As<IUserService>();
 
 			builder.RegisterType<AboutDal>().As<IAboutDal>();
 			builder.RegisterType<BlogDal>().As<IBlogDal>();
@@ -30,6 +36,10 @@ namespace WriterBlog.Business.DependencyResolvers
 			builder.RegisterType<ContactDal>().As<IContactDal>();
 			builder.RegisterType<WriterDal>().As<IWriterDal>();
 			builder.RegisterType<NewsLetterDal>().As<INewsLetterDal>();
+			builder.RegisterType<NotificationDal>().As<INotificationDal>();
+			builder.RegisterType<MessageDal>().As<IMessageDal>();
+			builder.RegisterType<Message2Dal>().As<IMessage2Dal>();
+			builder.RegisterType<UserDal>().As<IUserDal>();
 			base.Load(builder);
 		}
 	}

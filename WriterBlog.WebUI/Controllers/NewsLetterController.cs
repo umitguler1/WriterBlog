@@ -19,10 +19,10 @@ namespace WriterBlog.WebUI.Controllers
 			return PartialView();
 		}
 		[HttpPost]
-		public async Task<PartialViewResult> SubscribeMailAsync(NewsLetterDto newsLetterDto)
+		public async Task<IActionResult> SubscribeMailAsync(NewsLetterDto newsLetterDto)
 		{
 			_newsletterService.AddNewsLetter(newsLetterDto);
-			return PartialView();
+			return RedirectToAction("Index", "Blog");
 		}
 	}
 }
