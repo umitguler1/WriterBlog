@@ -1,0 +1,26 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+@model ContactDto
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Mail Detayı</h1>
+
+
+<br />
+
+@Html.Label("Mail Gönderen")
+@Html.TextAreaFor(x=>x.UserName,new{@class="form-control"})
+<br />
+@Html.Label("Mail Konusu")
+@Html.TextAreaFor(x=>x.Subject,new{@class="form-control"})
+<br />
+@Html.Label("Mail İçeriği")
+@Html.TextAreaFor(x=>x.Message,20,3,new{@class="form-control"})
+<br />
+<a class="btn btn-danger" href="/admin/adminmail/Delete/@Model.Id">Sil</a>
+
+<a class="btn btn-success" href="/admin/adminmail/index">Maillere Dön</a>
+
+

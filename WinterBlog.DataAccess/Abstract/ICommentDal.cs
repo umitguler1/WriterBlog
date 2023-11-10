@@ -10,5 +10,6 @@ namespace WinterBlog.DataAccess.Abstract
 {
     public interface ICommentDal : IRepositoryBase<Comment>
     {
+        Task<List<Comment>> GetListWithBlogAsyn();
     }
 }

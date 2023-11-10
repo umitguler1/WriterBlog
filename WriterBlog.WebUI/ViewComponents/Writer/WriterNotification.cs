@@ -15,7 +15,7 @@ namespace WriterBlog.WebUI.ViewComponents.Writer
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            List<NotificationDto> notificationDtos = await _notificationService.GetAllNotificationAsync();
+            List<NotificationDto> notificationDtos = _notificationService.GetAllNotificationAsync().Result.OrderByDescending(x=>x.Id).ToList();
             return View(notificationDtos);
         }
 

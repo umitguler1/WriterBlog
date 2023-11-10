@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace WriterBlog.Entities.Concrete
 {
 	public class BlogRayting : IEntity
 	{
+        [Key]
         public int Id { get; set; }
         public int BlogId { get; set; }
         public int BlogTotalScore { get; set; }

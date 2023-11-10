@@ -15,5 +15,6 @@ namespace WriterBlog.Business.Abstract
         Task<CommentDto> GetCommentByIdAsync(int id);
         Task<List<CommentDto>> GetAllCommentAsync(int id);
         Task<List<CommentDto>> GetAllCommentNoIdAsync();
+        Task<List<CommentDto>> GetCommentWithBlogAsyn();
     }
 }

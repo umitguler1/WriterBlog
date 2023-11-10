@@ -1,9 +1,12 @@
 ﻿
+using DocumentFormat.OpenXml.Office2010.Excel;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using WinterBlog.DataAccess.Concrete;
 using WinterBlog.DataAccess.Repositories;
 using WriterBlog.Business.Abstract;
 using WriterBlog.Business.ValidationRules;
@@ -16,16 +19,22 @@ namespace WriterBlog.WebUI.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ICategoryService _categoryService;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly ICommentService _commentService;
         BlogValidator validationRules = new BlogValidator();
-        public BlogController(IBlogService blogService, ICategoryService categoryService)
+        public BlogController(IBlogService blogService, ICategoryService categoryService, UserManager<AppUser> userManager, ICommentService commentService)
         {
             _blogService = blogService;
             _categoryService = categoryService;
+            _userManager = userManager;
+            _commentService = commentService;
         }
 
         public async Task<IActionResult> Index()
         {
-            List<BlogDto> list = await _blogService.GetBlogWithCategoryAsyn();
+          
+            List<BlogDto> list =  _blogService.GetBlogWithCategoryAsyn().Result.OrderByDescending(x=>x.Id).ToList();
+           
             return View(list);
         }
         static int d;
@@ -36,23 +45,19 @@ namespace WriterBlog.WebUI.Controllers
             TempData["BlogId"] = id;
 
             d++;
-			BlogDto blogDto = await _blogService.GetBlogByIdAsync(1);
+            ViewBag.comment = _commentService.GetAllCommentAsync(id).Result.Count;
+            BlogDto blogDto = await _blogService.GetBlogByIdAsync(id);
 			return View(blogDto);
        
 		}
-		static int writerId;
-		static int sayac;
-		public async Task<IActionResult> BlogListByWriter()
+        [Authorize(Roles = "Writer,Admin")]
+        public async Task<IActionResult> BlogListByWriter()
         {
-			//if (sayac < 1)
-			//{
-			//	writerId = int.Parse(TempData["WriterId2"].ToString());
-			//	sayac += 2;
-			//}
-			List<BlogDto> blogDtos = await _blogService.GetBlogListByWriterAsyn(1);
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            List<BlogDto> blogDtos =  _blogService.GetBlogListByWriterAsyn(values.Id).Result.OrderByDescending(x=>x.CreateDate).ToList();
             return View(blogDtos);
         }
-       
+        [Authorize(Roles = "Writer,Admin")]
         [HttpGet]
         public async Task<IActionResult> BlogAdd()
         {
@@ -68,14 +73,15 @@ namespace WriterBlog.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> BlogAdd(BlogDto blogDto)
         {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
 
             ValidationResult result =  validationRules.Validate(blogDto);
             if (result.IsValid)
             {
-                blogDto.WriterId = 1;
+                blogDto.WriterId = values.Id;
 
              
-                _blogService.AddBlogAsync(blogDto);
+               bool s= await _blogService.AddBlogAsync(blogDto);
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
             else
@@ -88,13 +94,14 @@ namespace WriterBlog.WebUI.Controllers
             return View();
             
         }
+        [Authorize(Roles = "Writer,Admin")]
         public async Task<IActionResult> BlogRemove(int id)
         {
             BlogDto blogdto = await _blogService.GetBlogByIdAsync(id);
             _blogService.DeleteBlogAsync(blogdto);
             return RedirectToAction("BlogListByWriter");
         }
-      
+        [Authorize(Roles = "Writer,Admin")]
         [HttpGet]
         public async Task<IActionResult> UpdateBlog(int id)
         {

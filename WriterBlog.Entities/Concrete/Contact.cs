@@ -18,5 +18,6 @@ namespace WriterBlog.Entities.Concrete
         public string Message { get; set; }
         public DateTime CreateDate { get; set; }
         public bool IsDeleted { get; set; }
+        public bool Read { get; set; }
     }
 }

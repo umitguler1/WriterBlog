@@ -29,5 +29,8 @@ namespace WriterBlog.Entities.Concrete.Dtos
 		[Display(Name = "Kullanıcı Adı")]
 		[Required(ErrorMessage = "Lütfen kullanıcı adınızı giriniz")]
 		public string UserName { get; set; }
-	}
+        [Display(Name = "Kullanıcı Adı")]
+        [Required(ErrorMessage = "Lütfen kullanıcı adınızı giriniz")]
+        public string ImageUrl { get; set; }
+    }
 }

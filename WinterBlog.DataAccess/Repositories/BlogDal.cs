@@ -13,6 +13,7 @@ namespace WinterBlog.DataAccess.Repositories
 {
 	public class BlogDal : RepositoryBase<Blog>, IBlogDal
     {
+        
         public BlogDal(Context context) : base(context)
         {
 
@@ -20,10 +21,13 @@ namespace WinterBlog.DataAccess.Repositories
 
 		public async Task<List<Blog>> GetListWithCategoryAsyn()
 		{
-			using (var c=new Context())
-			{
-				return await c.Blogs.Include(x=>x.Category).ToListAsync();
-			}
-		}
-	}
+            Context context = new Context();
+            return context.Blogs.Include(x => x.Category).ToList();
+        }
+        public async Task<List<Blog>> GetListWithCategory2Asyn(int id)
+        {
+            Context context = new Context();
+            return context.Blogs.Include(x => x.Category).Where(x=>x.WriterId==id).ToList();
+        }
+    }
 }

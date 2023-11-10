@@ -1,0 +1,20 @@
+﻿@using WriterBlog.Entities.Concrete;
+@model AppRole
+@{
+    ViewData["Title"] = "UpdateRole";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<h1>Role Düzenleme Sayfası</h1>
+<br />
+<form method="post">
+    <div class="form-group">
+        <label>Rol ID</label>
+        <input type="text" class="form-control" name="Id" value="@Model.Id" />
+    </div>
+    <div class="form-group">
+        <label>Rol Başlığı</label>
+        <input type="text" class="form-control" name="name" value="@Model.Name" />
+    </div>
+    <button class="btn btn-outline-primary">Rolü Güncelle</button>
+</form>
+

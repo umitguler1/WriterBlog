@@ -468,6 +468,9 @@ namespace WinterBlog.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Read")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -533,6 +536,9 @@ namespace WinterBlog.DataAccess.Migrations
                     b.Property<string>("MessageDetails")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Read")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("ReceiverId")
                         .HasColumnType("int");
@@ -703,7 +709,7 @@ namespace WinterBlog.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WriterBlog.Entities.Concrete.Writer", "Writer")
+                    b.HasOne("WriterBlog.Entities.Concrete.AppUser", "Writer")
                         .WithMany("Blogs")
                         .HasForeignKey("WriterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -727,17 +733,26 @@ namespace WinterBlog.DataAccess.Migrations
 
             modelBuilder.Entity("WriterBlog.Entities.Concrete.Message2", b =>
                 {
-                    b.HasOne("WriterBlog.Entities.Concrete.Writer", "ReceiverUser")
+                    b.HasOne("WriterBlog.Entities.Concrete.AppUser", "ReceiverUser")
                         .WithMany("WriterReceiver")
                         .HasForeignKey("ReceiverId");
 
-                    b.HasOne("WriterBlog.Entities.Concrete.Writer", "SenderUser")
+                    b.HasOne("WriterBlog.Entities.Concrete.AppUser", "SenderUser")
                         .WithMany("WriterSender")
                         .HasForeignKey("SenderId");
 
                     b.Navigation("ReceiverUser");
 
                     b.Navigation("SenderUser");
+                });
+
+            modelBuilder.Entity("WriterBlog.Entities.Concrete.AppUser", b =>
+                {
+                    b.Navigation("Blogs");
+
+                    b.Navigation("WriterReceiver");
+
+                    b.Navigation("WriterSender");
                 });
 
             modelBuilder.Entity("WriterBlog.Entities.Concrete.Blog", b =>
@@ -748,15 +763,6 @@ namespace WinterBlog.DataAccess.Migrations
             modelBuilder.Entity("WriterBlog.Entities.Concrete.Category", b =>
                 {
                     b.Navigation("Blogs");
-                });
-
-            modelBuilder.Entity("WriterBlog.Entities.Concrete.Writer", b =>
-                {
-                    b.Navigation("Blogs");
-
-                    b.Navigation("WriterReceiver");
-
-                    b.Navigation("WriterSender");
                 });
 #pragma warning restore 612, 618
         }

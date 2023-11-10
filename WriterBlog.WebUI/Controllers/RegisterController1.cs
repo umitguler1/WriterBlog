@@ -1,5 +1,7 @@
 ﻿using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Mail;
 using WriterBlog.Business.Abstract;
 using WriterBlog.Business.ValidationRules;
 using WriterBlog.Entities.Concrete.Dtos;
@@ -28,8 +30,25 @@ namespace WriterBlog.WebUI.Controllers
 			if (result.IsValid) 
 			{
 				writerDto.Abaut = "Deneme Test";
-				_writerService.AddWriterAsync(writerDto);
-				return RedirectToAction("Index", "Blog");
+				bool res =await _writerService.AddWriterAsync(writerDto);
+				//Sentry ekleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+				//Resimleri binary olarak kaydedetmeyi yap aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+				//if (res)
+				//{
+				//	MailMessage mailMessage = new MailMessage();
+				//	mailMessage.From=new MailAddress("");
+				//	mailMessage.Subject = "Hoşgeldiniz.";
+				//	SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com")
+    //                {
+    //                    UseDefaultCredentials = false,
+    //                    DeliveryMethod = SmtpDeliveryMethod.Network,
+    //                    Credentials = new NetworkCredential("userAddress", "userPassword"),
+    //                    Port = 587,
+    //                    EnableSsl = true,
+    //                }; 
+					
+				//}
+					return RedirectToAction("Index", "Blog");
 			}
 			else
 			{

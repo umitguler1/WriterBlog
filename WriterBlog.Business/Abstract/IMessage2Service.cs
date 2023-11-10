@@ -15,5 +15,6 @@ namespace WriterBlog.Business.Abstract
         Task<Message2Dto> GetMessage2ByIdAsync(int id);
         Task<List<Message2Dto>> GetAllMessage2Async(int id);
         Task<List<Message2Dto>> GetInboxListByWriter(int id);
+        Task<List<Message2Dto>> GetSendBoxListByWriter(int id);
     }
 }

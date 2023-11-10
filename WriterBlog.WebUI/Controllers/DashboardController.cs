@@ -1,19 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WinterBlog.DataAccess.Concrete;
+using WriterBlog.Business.Abstract;
+using WriterBlog.Entities.Concrete;
 
 namespace WriterBlog.WebUI.Controllers
 {
     public class DashboardController : Controller
     {
-        public IActionResult Index()
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IBlogService _blogService;
+        private readonly ICategoryService _categoryService;
+
+        public DashboardController(UserManager<AppUser> userManager, IBlogService blogService, ICategoryService categoryService)
         {
-			Context context = new Context();
-			var userName = User.Identity.Name;
-			var userMail = context.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
-			var writerid = context.Writers.Where(x => x.Email == userMail).Select(x => x.Id).FirstOrDefault();
-			ViewBag.v1=context.Blogs.Count().ToString();
-            ViewBag.v2=context.Blogs.Where(x=>x.WriterId==writerid).Count();
-            ViewBag.v3=context.Categories.Count().ToString();
+            _userManager = userManager;
+            _blogService = blogService;
+            _categoryService = categoryService;
+        }
+        [Authorize(Roles = "Writer,Admin,Moderator")]
+        public async Task<IActionResult> Index()
+        {
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.v1=(_blogService.GetAllBlogAsync()).Result.Count;
+            ViewBag.v2=_blogService.GetBlogListByWriterAsyn(values.Id).Result.Count;
+            ViewBag.v3=_categoryService.GetAllCategoryAsync().Result.Count;
             return View();
         }
     }

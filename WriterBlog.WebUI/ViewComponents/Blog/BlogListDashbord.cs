@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WinterBlog.DataAccess.Concrete;
 using WriterBlog.Business.Abstract;
 using WriterBlog.Entities.Concrete;
@@ -9,29 +11,24 @@ namespace WriterBlog.WebUI.ViewComponents.Blog
     public class BlogListDashbord : ViewComponent
     {
         private readonly IBlogService _blogService;
+        private readonly UserManager<AppUser> _userManager;
 
-        public BlogListDashbord(IBlogService blogService)
-        {
-            _blogService = blogService;
-        }
-		static int writerId;
-		static int sayac;
+		public BlogListDashbord(IBlogService blogService, UserManager<AppUser> userManager)
+		{
+			_blogService = blogService;
+			_userManager = userManager;
+		}
+		
 		public async Task<IViewComponentResult> InvokeAsync()
         {
-			Context context = new Context();
-			var userName = User.Identity.Name;
-			var userMail = context.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
-			var writerId = context.Writers.Where(x => x.Email == userMail).Select(x => x.Id).FirstOrDefault();
-			//if (sayac < 1)
-			//{
-			//	writerId = int.Parse(TempData["WriterId"].ToString());
-			//	sayac += 2;
-			//}
-			var values =await _blogService.GetBlogListByWriterAsyn(writerId);
+
+			var valuess = await _userManager.FindByNameAsync(User.Identity.Name);
+		
+			var values = _blogService.GetBlogListByWriterAsyn(valuess.Id).Result.OrderByDescending(x => x.CreateDate).ToList(); 
             List<BlogDto> blogDtos = new List<BlogDto>();
             foreach (var blogDto in values)
             {
-                if (blogDto.WriterId == writerId)
+                if (blogDto.WriterId == valuess.Id)
                 {
                     blogDtos.Add(blogDto);
                 }

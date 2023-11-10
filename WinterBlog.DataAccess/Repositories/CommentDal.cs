@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,14 @@ namespace WinterBlog.DataAccess.Repositories
         public CommentDal(Context context) : base(context) 
         {
             
+        }
+
+        public async Task<List<Comment>> GetListWithBlogAsyn()
+        {
+            using (var c = new Context())
+            {
+                return  c.Comments.Include(x => x.Blog).ToList();
+            }
         }
     }
 }

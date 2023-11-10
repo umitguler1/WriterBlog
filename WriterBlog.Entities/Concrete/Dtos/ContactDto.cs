@@ -14,5 +14,6 @@ namespace WriterBlog.Entities.Concrete.Dtos
         public string Subject { get; set; }
         public string Message { get; set; }
         public DateTime CreateDate { get; set; }
+        public bool Read { get; set; }
     }
 }

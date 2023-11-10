@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using WriterBlog.Business.Abstract;
-using WriterBlog.Entities.Concrete;
 using WriterBlog.Entities.Concrete.Dtos;
 using WriterBlog.WebUI.Models;
+using WriterBlog.Entities.Concrete;
+using Microsoft.AspNetCore.Identity;
+
+using WriterBlog.Business.Concrete;
 
 namespace WriterBlog.WebUI.Controllers
 {
@@ -13,26 +15,58 @@ namespace WriterBlog.WebUI.Controllers
 	{
 		private readonly IWriterService _writerService;
 		private readonly IAuthService _authService;
+        private readonly UserManager<AppUser> _userMenager; 
+        private readonly SignInManager<AppUser> _signInManager;
 
-		public LoginController(IWriterService writerService, IAuthService authService)
+		public LoginController(IWriterService writerService, IAuthService authService, SignInManager<AppUser> signInManager, UserManager<AppUser> userMenager)
 		{
 			_writerService = writerService;
 			_authService = authService;
+			_signInManager = signInManager;
+			_userMenager = userMenager;
 		}
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
 			return View();
 		}
+       
 		[HttpPost]
         public async Task<IActionResult> Index(LoginDto loginDto)
         {
+            
             if (ModelState.IsValid)
-            {
+			{
                 var result = await _authService.Login(loginDto);
-                if (result.Succeeded)
+				
+				if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Dashboard");
+					var values = await _userMenager.FindByNameAsync(loginDto.UserName);
+					var userRoles = await _userMenager.GetRolesAsync(values);
+                    string photo = values.ImageUrl;
+                    ViewData["i"] = photo;
+					bool user;
+					bool admin;
+					bool writer;
+					foreach (var role in userRoles) {
+                        admin= userRoles.Contains("Admin");
+                        user= userRoles.Contains("Member");
+                        writer= userRoles.Contains("Writer");
+						
+                        if (admin)
+                        {
+							return RedirectToAction("Index", "Widget",new {area="Admin"});
+						}
+                        else if (user)
+                        {
+							return RedirectToAction("Index", "Blog");
+						}
+                        else if (writer)
+                        {
+							return RedirectToAction("Index", "Dashboard");
+						}
+                    }
+                
                 }
                 else
                 {
@@ -78,7 +112,11 @@ namespace WriterBlog.WebUI.Controllers
         //		return View();
 
         //	}
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Login");
+        }
 
-    
-	}
+        }
 }

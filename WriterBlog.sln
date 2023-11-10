@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinterBlog.DataAccess", "Wi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriterBlog.Business", "WriterBlog.Business\WriterBlog.Business.csproj", "{E75D71D7-8C31-4022-A478-EBB1F31448FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriterBlogApi", "WriterBlogApi\WriterBlogApi.csproj", "{484E5213-78DD-4575-BB1E-65A405D540E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WriterBlogApi", "WriterBlogApi\WriterBlogApi.csproj", "{484E5213-78DD-4575-BB1E-65A405D540E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

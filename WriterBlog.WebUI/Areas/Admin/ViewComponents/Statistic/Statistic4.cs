@@ -1,16 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WinterBlog.DataAccess.Concrete;
+using WriterBlog.Entities.Concrete;
 
 namespace WriterBlog.WebUI.Areas.Admin.ViewComponents.Statistic
 {
     public class Statistic4 : ViewComponent
     {
-        Context context = new Context();
-        public async Task<IViewComponentResult> InvokeAsync()
+		private readonly UserManager<AppUser> _userManager;
+
+		public Statistic4(UserManager<AppUser> userManager)
+		{
+			_userManager = userManager;
+		}
+
+		public async Task<IViewComponentResult> InvokeAsync()
         {
-            ViewBag.v1 = context.Admins.Where(x => x.Id == 1).Select(x => x.Name).FirstOrDefault();
-            ViewBag.v2 = context.Admins.Where(x => x.Id == 1).Select(x => x.ImageURl).FirstOrDefault();
-            ViewBag.v3 = context.Admins.Where(x => x.Id == 1).Select(x => x.Description).FirstOrDefault();
+			var values = await _userManager.FindByNameAsync(User.Identity.Name);
+			ViewBag.v1 = values.NameSurname;
+			ViewBag.v2 = values.ImageUrl;
+            
             return View();
         }
 

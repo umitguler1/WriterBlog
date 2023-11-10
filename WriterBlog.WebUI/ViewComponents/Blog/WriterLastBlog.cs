@@ -14,7 +14,7 @@ namespace WriterBlog.WebUI.ViewComponents.Blog
 		}
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
-			List<BlogDto> blogDtos = await _blogService.GetBlogListByWriterAsyn(1);
+			List<BlogDto> blogDtos = await _blogService.GetBlogLast3PostAsyn();
 			return View(blogDtos);
 		}
 	}

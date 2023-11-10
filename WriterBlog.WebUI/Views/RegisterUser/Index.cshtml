@@ -2,6 +2,7 @@
 @model RegisterDto
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -45,6 +46,10 @@
                 <div class="form-group">
                     <span asp-validation-for="@Model.UserName" class="text-danger"></span>
                     <input type="text" class="form-control" asp-for="@Model.UserName" placeholder="Kullanıcı Adınız" required="">
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
+                    <input type="text" class="form-control" asp-for="@Model.ImageUrl" placeholder="Fotograf Linki" required="">
                 </div>
                 <div class="form-group">
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>

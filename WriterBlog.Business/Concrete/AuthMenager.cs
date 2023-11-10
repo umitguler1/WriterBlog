@@ -52,10 +52,11 @@ namespace WriterBlog.Business.Concrete
 		public async Task<IdentityResult> Register(RegisterDto registerDto)
 		{
 			AppUser user = _mapper.Map<AppUser>(registerDto);
-			user.ImageUrl = "a";
+			
 			
 
 			IdentityResult result  = await _userManager.CreateAsync(user,registerDto.Password);
+			
 		
 			return result;
 		}

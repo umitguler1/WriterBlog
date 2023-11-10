@@ -18,15 +18,31 @@
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Subject</td>
-            <td>@item.SenderUser.Name</td>
-            <td>@(((DateTime)item.CreateDate).ToString("DD-MMM-yyyy"))</td>
-        
-            <td><a href="/Message/MessageDetails/@item.Id" class="btn btn-warning">Mesayı Aç</a></td>
+        if (item.Read)
+        {
+            <tr class="read">
+                <td>@item.Id</td>
+                <td>@item.Subject</td>
+                <td>@item.SenderUser.NameSurname</td>
+                <td>@(
+                    ((DateTime)item.CreateDate).ToString("DD-MMM-yyyy")
+                    )</td>
 
-        </tr>
+                <td><a href="/Message/MessageDetails/@item.Id" class="btn btn-warning">Mesayı Aç</a></td>
+
+            </tr>
+        }else
+        {
+            <tr class ="unread">
+                <td>@item.Id</td>
+                <th>@item.Subject</th>
+                <th>@item.SenderUser.NameSurname</th>
+                <td>@(((DateTime)item.CreateDate).ToString("DD-MMM-yyyy"))</td>
+
+                <td><a href="/Message/MessageDetails/@item.Id" class="btn btn-warning">Mesayı Aç</a></td>
+
+            </tr>
+        }
     }
 </table>
-<a href="/blog/blogadd" class="btn btn-primary">Yeni Mesaj Oluştur</a>
+<a href="/message/sendmessage" class="btn btn-primary">Yeni Mesaj Oluştur</a>

@@ -25,6 +25,7 @@ namespace WriterBlog.Business.Concrete
         public async Task<bool> AddMessage2Async(Message2Dto message2Dto)
         {
             Message2 message2 = DtoConvert(message2Dto);
+            message2.Read = false;
             int reponse = await _message2Dal.AddAsync(message2);
             return reponse == 0 ? false : true;
         }
@@ -68,7 +69,7 @@ namespace WriterBlog.Business.Concrete
 
         public async Task<List<Message2Dto>> GetInboxListByWriter(int id)
         {
-            List<Message2> message2s = await _message2Dal.GetListWithMessageByWriter(id);
+            List<Message2> message2s = await _message2Dal.GetInBoxWithMessageByWriter(id);
             List<Message2Dto> message2Dtos = new List<Message2Dto>();
             foreach (Message2 item in message2s)
             {
@@ -77,6 +78,19 @@ namespace WriterBlog.Business.Concrete
             }
             return message2Dtos;
 
+        }
+
+        public async Task<List<Message2Dto>> GetSendBoxListByWriter(int id)
+        {
+
+            List<Message2> message2s = await _message2Dal.GetSendBoxWithMessageByWriter(id);
+            List<Message2Dto> message2Dtos = new List<Message2Dto>();
+            foreach (Message2 item in message2s)
+            {
+                Message2Dto message2Dto = _mapper.Map<Message2Dto>(item);
+                message2Dtos.Add(message2Dto);
+            }
+            return message2Dtos;
         }
     }
 }

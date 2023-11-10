@@ -10,6 +10,7 @@ namespace WriterBlog.WebUI.Controllers
         }
         public async Task<PartialViewResult> AdminNavbarPartial()
         {
+
             return PartialView();
         }
     }

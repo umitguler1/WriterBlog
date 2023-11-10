@@ -25,6 +25,7 @@ namespace WriterBlog.Business.Concrete
         public async Task<bool> AddContactAsync(ContactDto contactDto)
         {
             Contact contact = DtoConvert(contactDto);
+            contact.IsDeleted = false;
             int reponse = await _contactDal.AddAsync(contact);
             return reponse == 0 ? false : true;
         }

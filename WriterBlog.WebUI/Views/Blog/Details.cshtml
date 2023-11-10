@@ -37,11 +37,12 @@
 									</li>
 									<li class="mx-2">
 										<a href="#">
-											<i class="far fa-thumbs-up"></i> 0 Likes</a>
+											<i class="far fa-thumbs-up"></i> 0 Beğeni</a>
 									</li>
 									<li>
 										<a href="#">
-											<i class="far fa-comment"></i> 0 Comments</a>
+											<i class="far fa-comment"></i> @ViewBag.comment Yorum
+										</a>
 									</li>
 									
 								</ul>
@@ -56,7 +57,7 @@
 					</div>
 					    @await Component.InvokeAsync("CommentListByBlog",new {id=ViewBag.Id})
 						@*@await Html.PartialAsync("~/Views/CommentController1/CommentListByBlog.cshtml")*@
-						@await Html.PartialAsync("~/Views/CommentController1/PartialAddComment.cshtml")
+						@await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
 				</div>
 
 				<!--//left-->
@@ -70,8 +71,6 @@
 						@await Html.PartialAsync("~/Views/NewsLetter/SubscribeMailAsync.cshtml")
 
 						@await Component.InvokeAsync("CategoryList")
-
-
 						@await Component.InvokeAsync("WriterLastBlog")
 
 						<div class="single-gd my-5 tech-btm">

@@ -21,7 +21,9 @@ namespace WriterBlog.Core.DataAccess.EntityFremawork
 
         public Task<int> AddAsync(T entity)
         {
+            
             _dbSet.Add(entity);
+
             return _db.SaveChangesAsync();
         }
 

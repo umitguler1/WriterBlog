@@ -1,0 +1,38 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+@model List<Message2Dto>
+@{
+    ViewData["Title"] = "SendBox";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+
+
+
+
+<h1>Giden Kutusu</h1>
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Konu</th>
+        <th>Alıcı</th>
+        <th>Tarih</th>
+        <th>#</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Subject</td>
+            <td>@item.ReceiverUser.NameSurname</td>
+            <td>@(((DateTime)item.CreateDate).ToString("dd-MMM-yyyy"))</td>
+            <td><a href="/Message/MessageDetails/@item.Id" class="btn btn-warning">Mesayı Aç</a></td>
+        </tr>
+    }
+</table>
+<a href="/Message/InBox" class="btn btn-primary">Geri Dön</a>
+<br />
+<br />
+<a href="/Message/InBox" class="btn btn-primary">Gelen Mesaj</a>
+
+

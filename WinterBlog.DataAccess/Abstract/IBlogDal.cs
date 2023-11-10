@@ -11,5 +11,6 @@ namespace WinterBlog.DataAccess.Abstract
     public interface IBlogDal : IRepositoryBase<Blog>
     {
         Task<List<Blog>> GetListWithCategoryAsyn();
+        Task<List<Blog>> GetListWithCategory2Asyn(int id);
     }
 }

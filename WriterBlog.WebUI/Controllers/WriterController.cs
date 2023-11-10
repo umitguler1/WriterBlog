@@ -11,8 +11,8 @@ using WriterBlog.Entities.Concrete.Dtos;
 
 namespace WriterBlog.WebUI.Controllers
 {
-    
-    public class WriterController : Controller
+
+	public class WriterController : Controller
 	{
 		private readonly IWriterService _writerService;
 		private readonly UserManager<AppUser> _userManager;
@@ -31,7 +31,7 @@ namespace WriterBlog.WebUI.Controllers
 			var userMail = User.Identity.Name;
 			ViewBag.V = userMail;
 			Context c = new Context();
-			var weritername = c.Writers.Where(x=>x.Email==userMail).Select(x=>x.Name).FirstOrDefault();	
+			var weritername = c.Writers.Where(x => x.Email == userMail).Select(x => x.Name).FirstOrDefault();
 			ViewBag.V2 = weritername;
 			return View();
 		}
@@ -43,13 +43,15 @@ namespace WriterBlog.WebUI.Controllers
 		{
 			return PartialView();
 		}
-        public async Task<PartialViewResult> WriterFooterPartial()
-        {
-            return PartialView();
-        }
-		[HttpGet]
+		public async Task<PartialViewResult> WriterFooterPartial()
+		{
+			return PartialView();
+		}
+        [Authorize(Roles = "Writer,Admin,Moderator")]
+        [HttpGet]
 		public async Task<IActionResult> WriterEditProfile()
 		{
+
 			//Context context = new Context();
 			//var userName = User.Identity.Name;
 			//var userMail = context.Users.Where(x => x.UserName == userName).Select(x => x.Email).FirstOrDefault();
@@ -59,33 +61,32 @@ namespace WriterBlog.WebUI.Controllers
 			return View(values);
 		}
 		[HttpPost]
-        public async Task<IActionResult> WriterEditProfile(AppUser appUser)
-        {
+		public async Task<IActionResult> WriterEditProfile(AppUser appUser)
+		{
 			var values = await _userManager.FindByNameAsync(User.Identity.Name);
 			values.Email = appUser.Email;
 			values.ImageUrl = appUser.ImageUrl;
 			values.NameSurname = appUser.NameSurname;
+			values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, appUser.PasswordHash);
 			IdentityResult result = await _userManager.UpdateAsync(values);
-            return result.Succeeded ? RedirectToAction("Index", "Dashboard") : View(values);
-            //WriterValidator wl = new WriterValidator();
-            //ValidationResult result = wl.Validate(writerDto);
-            //if (result.IsValid)
-            //{
-            //            bool res=await _writerService.UpdateWriterAsync(writerDto);
-            //	return res ? RedirectToAction("Index", "Dashboard") :View(writerDto);
-            //         }
-            //else
-            //{
-            //	foreach (var item in result.Errors)
-            //	{
-            //		ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-            //	}
-            //}
-            //return View(writerDto);
+			return result.Succeeded ? RedirectToAction("Index", "Dashboard") : View(values);
+			//WriterValidator wl = new WriterValidator();
+			//ValidationResult result = wl.Validate(writerDto);
+			//if (result.IsValid)
+			//{
+			//            bool res=await _writerService.UpdateWriterAsync(writerDto);
+			//	return res ? RedirectToAction("Index", "Dashboard") :View(writerDto);
+			//         }
+			//else
+			//{
+			//	foreach (var item in result.Errors)
+			//	{
+			//		ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+			//	}
+			//}
+			//return View(writerDto);
 
+		}
 
-
-
-        }
-    }
+	}
 }

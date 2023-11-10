@@ -13,7 +13,7 @@ namespace WinterBlog.DataAccess.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-DFITEPJ\\SQLEXPRESS;Initial Catalog=WriterBlogDb;Integrated Security=true");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-DFITEPJ\\SQLEXPRESS;Initial Catalog=WriterBlogDb1;Integrated Security=true");
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

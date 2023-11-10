@@ -1,0 +1,46 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+@model List<WriterDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Yazarlarımız</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="index.html">Anasayfa</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Yazarlarımız</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+    </div>
+</div>
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Yazar Adı</th>
+        <th>Yazar Hakkında</th>
+        <th>Yazar Mail</th>
+        <th>Sil</th>
+        <th>Düzenle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.Abaut</td>
+            <td>@item.Email</td>
+            <td><a href="/Admin/Writer/DeleteWriter/@item.Id" class="btn btn-outline-danger">Sil</a></td>
+            <td><a href="/Admin/Writer/EditWriter/@item.Id" class="btn btn-outline-success">Düzenle</a></td>
+        </tr>
+    }
+
+</table>
+<a href="/Admin/Writer/AddWriter/" class="btn btn-outline-primary">Yazar Ekle</a>

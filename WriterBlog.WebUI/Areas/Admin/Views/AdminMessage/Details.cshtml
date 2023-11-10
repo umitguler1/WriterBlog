@@ -1,0 +1,25 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+@model Message2Dto
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Mesj Detayı</h1>
+<br />
+
+@Html.Label("Mesaj Id Id")
+@Html.TextAreaFor(x=>x.Id,new{@class="form-control"})
+<br />
+@Html.Label("Mesaj Konusu")
+@Html.TextAreaFor(x=>x.Subject,new{@class="form-control"})
+<br />
+@Html.Label("Mesaj İçeriği")
+@Html.TextAreaFor(x=>x.MessageDetails,20,3,new{@class="form-control"})
+<br />
+<a class="btn btn-danger" href="/admin/adminmessage/delete/@Model.Id">Mesajı Sil</a>
+<br />
+<br />
+
+<a class="btn btn-success" href="/admin/adminmessage/inbox">Mesajlara Dön</a>
+

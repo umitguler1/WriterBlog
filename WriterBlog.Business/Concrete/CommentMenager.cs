@@ -79,5 +79,17 @@ namespace WriterBlog.Business.Concrete
             }
             return commentDtos;
         }
+
+        public async Task<List<CommentDto>> GetCommentWithBlogAsyn()
+        {
+            List<Comment> comments = await _commentDal.GetListWithBlogAsyn();
+            List<CommentDto> commentDtos = new List<CommentDto>();
+            foreach (Comment comment in comments)
+            {
+                CommentDto commentDto = _mapper.Map<CommentDto>(comment);
+                commentDtos.Add(commentDto);
+            }
+            return commentDtos;
+        }
     }
 }

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WriterBlog.Business.Abstract;
 
 namespace WriterBlog.WebUI.Controllers
 {
+    [Authorize(Roles = "Writer,Admin,Moderator")]
     public class NotificationController : Controller
     {
         private readonly INotificationService _notificationService;
@@ -21,5 +23,6 @@ namespace WriterBlog.WebUI.Controllers
             var values = await _notificationService.GetAllNotificationAsync();
             return View(values);
         }
+       
     }
 }

@@ -1,0 +1,41 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+@model NotificationDto
+
+@{
+    ViewData["Title"] = "AddNotification";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("AddNotification", "AdminNaotification", FormMethod.Post))
+{
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Bildirim Ekle</h4>
+                <br>
+               
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label for="exampleInputName1">Bildirim Başlığı</label>
+                        @Html.TextBoxFor(x=>x.NotificationType, new {@class="form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Bildirim Detayları</label>
+                        @Html.TextAreaFor(x=>x.NotificationDetils,10,3, new {@class="form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Bildirim Rengi</label>
+                        @Html.TextBoxFor(x=>x.NotificationColor, new {@class="form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label  for="exampleInputName1">Bildirim Sembolü</label>
+                        @Html.TextBoxFor(x=>x.NotificationTypeSymbol, new {@class="form-control"})
+                    </div>
+
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Ekle</button>
+                    <button class="btn btn-light">İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}

@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WriterBlog.Business.Abstract;
 using WriterBlog.Entities.Concrete.Dtos;
@@ -7,6 +8,7 @@ using WriterBlog.WebUI.Areas.Admin.Models;
 namespace WriterBlog.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class BlogAdmnController : Controller
     {
         private readonly IBlogService _blogService;

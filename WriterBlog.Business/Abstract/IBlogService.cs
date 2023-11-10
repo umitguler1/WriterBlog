@@ -15,6 +15,7 @@ namespace WriterBlog.Business.Abstract
         Task<BlogDto> GetBlogByIdAsync(int id);
         Task<List<BlogDto>> GetAllBlogAsync();
 		Task<List<BlogDto>> GetBlogWithCategoryAsyn();
+		Task<List<BlogDto>> GetListWithCategory2Asyn(int id);
 		Task<List<BlogDto>> GetBlogLast3PostAsyn();
 		Task<List<BlogDto>> GetBlogListByWriterAsyn(int id);
 	}

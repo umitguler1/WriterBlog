@@ -17,13 +17,22 @@ namespace WinterBlog.DataAccess.Repositories
         {
 
         }
-        public async Task<List<Message2>> GetListWithMessageByWriter(int id)
+        public async Task<List<Message2>> GetInBoxWithMessageByWriter(int id)
         {
             using (var c = new Context())
             {
-                return await c.Message2s.Include(x => x.SenderUser).Where(x=>x.ReceiverId == id).ToListAsync();
+                List<Message2> message2s = await c.Message2s.Include(x => x.SenderUser).Where(x=>x.ReceiverId == id).ToListAsync();
+                return message2s;
             }
         }
 
+        public async Task<List<Message2>> GetSendBoxWithMessageByWriter(int id)
+        {
+            using (var c = new Context())
+            {
+             List<Message2> message2s=   await c.Message2s.Include(x => x.ReceiverUser).Where(x => x.SenderId == id).ToListAsync();
+                return message2s;
+            }
+        }
     }
 }

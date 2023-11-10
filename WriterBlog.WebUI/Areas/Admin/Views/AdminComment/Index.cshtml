@@ -1,0 +1,98 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+@model List<CommentDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+
+
+<body>
+
+    <div class="row border-bottom">
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Yorumlar </h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="#" class="dropdown-item">Config option 1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="dropdown-item">Config option 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Kullanıcı</th>
+                                    <th>Başlık</th>
+                                    <th>Blog</th>
+                                    <th>Puan</th>
+                                    <th>Tarih</th>
+                                    <th>Sil</th>
+                                    <th>Güncelle</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.UserName</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.Blog.Title</td>
+                                        @if (item.BlogScore >= 5)
+                                        {
+                                            <td class="text-navy"><i class="fa fa-level-up"></i> @item.BlogScore</td>
+                                        }
+
+                                        else
+                                        {
+                                            <td class="text-navy"><i class="fa fa-level-down" style="color:red"></i> @item.BlogScore</td>
+
+                                        }
+                                        <td>@(((DateTime)item.CreateDate).ToString("dd-MMM-yyyy"))</td>
+                                        <td><a href="/admin/admincomment/delete/@item.Id" class="btn btn-danger">Sil</a></td>
+                                        <td><a href="#" class="btn btn-success">Güncelle</a></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

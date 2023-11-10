@@ -17,5 +17,6 @@ namespace WriterBlog.WebUI.ViewComponents.Blog
 			List<BlogDto> blogDtos = await _blogService.GetBlogLast3PostAsyn();
 			return View(blogDtos);
 		}
+		
 	}
 }

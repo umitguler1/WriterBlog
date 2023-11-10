@@ -21,7 +21,7 @@ namespace WriterBlog.WebUI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Index(ContactDto contactDto)
 		{
-			_contactService.DeleteContactAsync(contactDto);
+			_contactService.AddContactAsync(contactDto);
 			return RedirectToAction("Index","Blog");
 		}
 	}

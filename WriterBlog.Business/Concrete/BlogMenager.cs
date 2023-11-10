@@ -26,6 +26,7 @@ namespace WriterBlog.Business.Concrete
         public async Task<bool> AddBlogAsync(BlogDto blogDto)
         {
             Blog blog = DtoConvert(blogDto);
+            blog.IsDeleted = false;
             blog.CreateDate = DateTime.Parse(DateTime.Now.ToLongDateString());
             int reponse = await _blogDal.AddAsync(blog);
             return reponse == 0 ? false : true;
@@ -105,5 +106,16 @@ namespace WriterBlog.Business.Concrete
 			return blogDtos;
 		}
 
+        public async Task<List<BlogDto>> GetListWithCategory2Asyn(int id)
+        {
+            List<Blog> blogs = await _blogDal.GetListWithCategory2Asyn(id);
+            List<BlogDto> blogDtos = new List<BlogDto>();
+            foreach (Blog blog in blogs)
+            {
+                BlogDto blogDto = _mapper.Map<BlogDto>(blog);
+                blogDtos.Add(blogDto);
+            }
+            return blogDtos;
+        }
     }
 }

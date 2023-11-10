@@ -1,22 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WinterBlog.DataAccess.Concrete;
 using WriterBlog.Business.Abstract;
+using WriterBlog.Entities.Concrete;
 
 namespace WriterBlog.WebUI.Areas.Admin.ViewComponents.Statistic
 {
     public class Statistic2 : ViewComponent
     {
-        private readonly IWriterService _writerServices;
-        Context context = new Context();
+        private readonly UserManager<AppUser> _userManager;
 
-        public Statistic2(IWriterService writerServices)
+        public Statistic2(UserManager<AppUser> userManager)
         {
-            _writerServices = writerServices;
+            _userManager = userManager;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            ViewBag.writer = context.Writers.OrderByDescending(x => x.Id).Select(x => x.Name).FirstOrDefault();
+           
+           AppUser appUser = _userManager.Users.OrderByDescending(x=>x.Id).FirstOrDefault();
+            ViewBag.writer = appUser.NameSurname;
             return View();
         }
 

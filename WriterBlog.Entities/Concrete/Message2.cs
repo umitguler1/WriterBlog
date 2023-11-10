@@ -16,8 +16,9 @@ namespace WriterBlog.Entities.Concrete
         public string Subject { get; set; }
         public string MessageDetails { get; set; }
         public DateTime CreateDate { get; set; }
-        public Writer SenderUser { get; set; }
-        public Writer ReceiverUser { get; set; }
+        public AppUser SenderUser { get; set; }
+        public AppUser ReceiverUser { get; set; }
         public bool IsDeleted { get; set; }
+        public bool Read { get; set; }
     }
 }

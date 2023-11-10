@@ -13,5 +13,9 @@ namespace WriterBlog.Entities.Concrete
         public string NameSurname { get; set; }
         public string ImageUrl { get; set; }
         public bool IsDeleted { get; set; }
+
+        public List<Blog> Blogs { get; set; }
+        public virtual ICollection<Message2> WriterSender { get; set; }
+        public virtual ICollection<Message2> WriterReceiver { get; set; }
     }
 }

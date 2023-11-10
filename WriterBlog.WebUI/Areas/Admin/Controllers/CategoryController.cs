@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WinterBlog.DataAccess.Repositories;
 using WriterBlog.Business.Abstract;
@@ -11,6 +12,7 @@ using WriterBlog.Entities.Concrete.Dtos;
 namespace WriterBlog.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

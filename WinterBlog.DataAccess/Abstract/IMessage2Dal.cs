@@ -10,6 +10,7 @@ namespace WinterBlog.DataAccess.Abstract
 {
     public interface IMessage2Dal : IRepositoryBase<Message2>
     {
-        Task<List<Message2>> GetListWithMessageByWriter(int id);
+        Task<List<Message2>> GetInBoxWithMessageByWriter(int id);
+        Task<List<Message2>> GetSendBoxWithMessageByWriter(int id);
     }
 }

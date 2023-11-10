@@ -19,9 +19,7 @@ namespace WriterBlog.Entities.Concrete
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public List<Blog> Blogs { get; set; }
-        public virtual ICollection<Message2> WriterSender { get; set; }
-        public virtual ICollection<Message2> WriterReceiver { get; set; }
-    public bool IsDeleted { get; set; }
+     
+        public bool IsDeleted { get; set; }
     }
 }

@@ -1,0 +1,26 @@
+﻿@using WriterBlog.Entities.Concrete.Dtos;
+@model Message2Dto
+@{
+    ViewData["Title"] = "SendMessage";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+
+<h1>Yeni Mesaj Gönder</h1>
+<br />
+<div class="container">
+    <form method="post">
+        <label>Konu</label>
+        @Html.TextBoxFor(x=>x.Subject, new{ @class="form-control"})
+        <br />
+        <label>Alıcı</label>
+      
+        @Html.DropDownListFor(x=>x.ReceiverId,(List<SelectListItem>)ViewBag.rv,new {@class="form-control"})
+        <br />
+        <label>Mesajınız</label>
+        @Html.TextAreaFor(x=>x.MessageDetails,10,3, new{ @class="form-control"})
+        <br />
+        <button class="btn btn-outline-success">Mesajı Gönder</button>
+    </form>
+</div>
+
